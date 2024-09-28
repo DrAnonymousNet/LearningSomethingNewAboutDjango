@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Item List with AJAX Pagination</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<div id="item-list-container">
+    <!-- Load the paginated items -->
+    {% include 'partial_item_list.html' %}
+</div>
+
+<script>
+    // AJAX handler for pagination links
+    $(document).on('click', '.pagination a', function(event) {
+        event.preventDefault();
+        
+        var page_url = $(this).attr('href');
+        
+        $.ajax({
+            url: page_url,
+            success: function(data) {
+                // Replace the item list with the new page content
+                $('#item-list-container').html(data);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
